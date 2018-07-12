@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+<title>Doctor Anywhere - Redis with Spring Boot</title>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-functions.js"></script>
+ -->
+ <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCcwIp3GKmm4SVZP5g-Xx1t5kkv4kWQImQ",
+    authDomain: "sathiya-project.firebaseapp.com",
+    databaseURL: "https://sathiya-project.firebaseio.com",
+    projectId: "sathiya-project",
+    storageBucket: "sathiya-project.appspot.com",
+    messagingSenderId: "564181353798"
+  };
+  firebase.initializeApp(config);
+  
+  var provider = new firebase.auth.GoogleAuthProvider();
+  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+  firebase.auth().useDeviceLanguage();
+  provider.setCustomParameters({
+	  'login_hint': 'user@example.com'
+	});
+  
+ /*  firebase.auth().signInWithPopup(provider).then(function(result) {
+	  // This gives you a Google Access Token. You can use it to access the Google API.
+	  var token = result.credential.accessToken;
+	  // The signed-in user info.
+	  var user = result.user;
+	  // ...
+	}).catch(function(error) {
+	  // Handle Errors here.
+	  var errorCode = error.code;
+	  var errorMessage = error.message;
+	  // The email of the user's account used.
+	  var email = error.email;
+	  // The firebase.auth.AuthCredential type that was used.
+	  var credential = error.credential;
+	  // ...
+	}); */
+  
+  /* firebase.auth().signInWithRedirect(provider);
+  firebase.auth().getRedirectResult().then(function(result) {
+	  if (result.credential) {
+	    // This gives you a Google Access Token. You can use it to access the Google API.
+	    var token = result.credential.accessToken;
+	    // ...
+	  }
+	  // The signed-in user info.
+	  var user = result.user;
+	}).catch(function(error) {
+	  // Handle Errors here.
+	  var errorCode = error.code;
+	  var errorMessage = error.message;
+	  // The email of the user's account used.
+	  var email = error.email;
+	  // The firebase.auth.AuthCredential type that was used.
+	  var credential = error.credential;
+	  // ...
+	}); */
+	
+	
+  /* firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+	  // Handle Errors here.
+	  var errorCode = error.code;
+	  var errorMessage = error.message;
+	  // ...
+	});
+  
+  firebase.auth().signOut().then(function() {
+	  // Sign-out successful.
+	}).catch(function(error) {
+	  // An error happened.
+	}); */
+</script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css"/>
+</head>
+<body bgcolor="white">
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <form id="addForm">
+                <div class="form-group">
+                    <label for="keyInput">Patient ID (key)</label>
+                    <input name="keyInput" id="keyInput" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">Patient First Name</label>
+                    <input name="firstName" id="firstName" class="form-control"/>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Patient Last Name</label>
+                    <input name="lastName" id="lastName" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="contactNo">Patient Contact No</label>
+                    <input name="contactNo" id="contactNo" class="form-control"/>
+                </div>
+                
+                
+                <div class="form-group">
+                    <label for="addressType">Address Type</label>
+                    <input name="addressType" id="addressType" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="addressLine1">Address1</label>
+                    <input name="addressLine1" id="addressLine1" class="form-control"/>
+                </div>
+                <div class="form-group">
+                    <label for="addressLine2">Address2</label>
+                    <input name="addressLine2" id="addressLine2" class="form-control"/>
+                </div>
+                  <div class="form-group">
+                    <label for="city">City</label>
+                    <input name="city" id="city" class="form-control"/>
+                </div>
+                  <div class="form-group">
+                    <label for="country">Country</label>
+                    <input name="country" id="country" class="form-control"/>
+                </div>
+                 <div class="form-group">
+                    <label for="postalCode">Postal Code</label>
+                    <input name="postalCode" id="postalCode" class="form-control"/>
+                </div>
+                <button class="btn btn-default" id="addButton">Add</button>
+            </form>
+        </div>
+        <div class="col-md-8 col-md-offset-1">
+            <table class="table table-hover" id="mainTable">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Contact No</th>
+                        <th>Address Type</th>
+                        <th>AddressLine1</th>
+                        <th>AddressLine2</th>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Postal Code</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

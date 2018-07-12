@@ -1,0 +1,115 @@
+
+<!doctype html>
+<html>
+<!--  <meta name="google-signin-client_id" content="564181353798-coqp1n8mnprffnf2iu4nr1on9r5a9a16.apps.googleusercontent.com">
+<meta name="google-signin-cookiepolicy" content="single_host_origin">
+<meta name="google-signin-scope" content="profile email"> -->
+<head>
+<title>Doctor Anywhere - Redis with Spring Boot</title>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase-functions.js"></script>
+ -->
+ <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCcwIp3GKmm4SVZP5g-Xx1t5kkv4kWQImQ",
+    authDomain: "sathiya-project.firebaseapp.com",
+    databaseURL: "https://sathiya-project.firebaseio.com",
+    projectId: "sathiya-project",
+    storageBucket: "sathiya-project.appspot.com",
+    messagingSenderId: "564181353798"
+  };
+  firebase.initializeApp(config);
+  
+	function toggleSignIn() {
+		  if (!firebase.auth().currentUser) {
+		    // [START createprovider]
+		    var provider = new firebase.auth.GoogleAuthProvider();
+		    // [END createprovider]
+		    // [START addscopes]
+		    provider.addScope('https://www.googleapis.com/auth/plus.login');
+		    // [END addscopes]
+		    // [START signin]
+		    firebase.auth().signInWithPopup(provider).then(function(result) {
+		      // This gives you a Google Access Token. You can use it to access the Google API.
+		      var token = result.credential.accessToken;
+		      // The signed-in user info.
+		      var user = result.user;
+		     // alert('sat:'+user);
+		      // [START_EXCLUDE]
+		     // document.getElementById('quickstart-oauthtoken').textContent = token;
+		      // [END_EXCLUDE]
+		      firebase.auth().onAuthStateChanged(user => {
+			  if(user) {
+				    window.location = 'home.html'; //After successful login, user will be redirected to home.html
+				  }
+				});
+		      
+		    }).catch(function(error) {
+		      // Handle Errors here.
+		      var errorCode = error.code;
+		      var errorMessage = error.message;
+		      // The email of the user's account used.
+		      var email = error.email;
+		      // The firebase.auth.AuthCredential type that was used.
+		      var credential = error.credential; 
+		      // [START_EXCLUDE]
+		      if (errorCode === 'auth/account-exists-with-different-credential') {
+		        alert("You have already signed up with a different auth provider for that email.");
+		        // If you are using multiple auth providers on your app you should handle linking
+		        // the user's accounts here.
+		      }
+		  else if (errorCode === 'auth/auth-domain-config-required') {
+		    alert("An auth domain configuration is required"); 
+		      }
+		      else if (errorCode === 'auth/cancelled-popup-request') {
+		          alert("Popup Google sign in was canceled");
+		      }
+		      else if (errorCode === 'auth/operation-not-allowed') {
+		          alert("Operation is not allowed");
+		      }
+		      else if (errorCode === 'auth/operation-not-supported-in-this-environment') {
+		          alert("Operation is not supported in this environment");
+		      }
+		      else if (errorCode === 'auth/popup-blocked') {
+		          alert("Sign in popup got blocked");
+		      }
+		      else if (errorCode === 'auth/popup-closed-by-user') {
+		          alert("Google sign in popup got cancelled");
+		      }
+		      else if (errorCode === 'auth/unauthorized-domain') {
+		          alert("Unauthorized domain");
+		      }
+		       else {
+		        console.error(error);
+		      }
+		      // [END_EXCLUDE]
+		    });
+		    // [END signin]
+		  } else {
+		    // [START signout]
+		    firebase.auth().signOut();
+		    // [END signout]
+		  }
+		  // [START_EXCLUDE]
+		  document.getElementById('quickstart-sign-ing').disabled = false;
+		  // [END_EXCLUDE]
+		}
+</script>
+<link rel="stylesheet" href="login.css"/>
+
+</head>
+<body>
+<div class="login-page">
+  <div class="form">
+    <label for="male" style="color:blue;font-weight: bolder;font-size: x-large;">Welcome To Doctor Anywhere</label>
+    <br/><br/><br/>
+    <button id="quickstart-sign-ing" onclick="toggleSignIn();">Sign In</button>
+  </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+</body>
+</html>

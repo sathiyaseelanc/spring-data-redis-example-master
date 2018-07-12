@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<title>Doctor Anywhere - Redis with Spring Boot</title>
+<link rel="stylesheet" href="login.css"/>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+ <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCcwIp3GKmm4SVZP5g-Xx1t5kkv4kWQImQ",
+    authDomain: "sathiya-project.firebaseapp.com",
+    databaseURL: "https://sathiya-project.firebaseio.com",
+    projectId: "sathiya-project",
+    storageBucket: "sathiya-project.appspot.com",
+    messagingSenderId: "564181353798"
+  };
+  firebase.initializeApp(config);
+  </script>
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>	
+<script type="text/javascript">
+
+function signout(){
+	
+	firebase.auth().signOut().then(function() {
+		  // Sign-out successful.
+		 window.location = '/';
+		}).catch(function(error) {
+		  // An error happened.
+		});  
+}
+
+$(document).ready(function() {
+	//alert('onload');
+	firebase.auth().onAuthStateChanged(user => {
+		 if(user) {
+			 $('#signout').show();
+		  }else{
+			  $('#signout').hide();
+		  }
+		});
+});
+</script>
+ </head>
+ <body>
+ <div class="login-page">
+ <div class="signout">
+ <button id="signout" onclick="signout();">Sign Out</button>
+  <div class="form">
+   
+   <label  style="color:blue;font-weight: bolder;font-size: x-large;">Doctor Anywhere</label><br/><br/>
+   <a id="dd" href="javascript:window.location = 'welcome'" >Data Table</a> <br/>
+   <a id="ws" href="javascript:window.location = 'webservice'">Web Service</a>
+  </div>
+</div>
+</div>
+</body>
+</html>
+ 

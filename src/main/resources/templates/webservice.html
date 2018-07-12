@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<title>Doctor Anywhere - Redis with Spring Boot</title>
+<script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+ <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCcwIp3GKmm4SVZP5g-Xx1t5kkv4kWQImQ",
+    authDomain: "sathiya-project.firebaseapp.com",
+    databaseURL: "https://sathiya-project.firebaseio.com",
+    projectId: "sathiya-project",
+    storageBucket: "sathiya-project.appspot.com",
+    messagingSenderId: "564181353798"
+  };
+  firebase.initializeApp(config);
+  
+  var provider = new firebase.auth.GoogleAuthProvider();
+  provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+  firebase.auth().useDeviceLanguage();
+  provider.setCustomParameters({
+	  'login_hint': 'user@example.com'
+	});
+  </script>
+ 
+ <!-- <link rel="stylesheet" href="login.css"/> -->
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script> 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script> 
+<script src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script> 
+<script src="https://cdn.datatables.net/select/1.1.2/js/dataTables.select.min.js"></script> 
+<script src="https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js"></script> 
+ <script src="dataTables.altEditor.free.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css"/>
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css"/> 
+<link rel="stylesheet" href="https://cdn.datatables.net/select/1.1.2/css/select.dataTables.min.css"/> 
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.dataTables.min.css"/>
+<script src="restful.js"></script>
+<script type="text/javascript">
+function signout(){
+	//alert();
+	firebase.auth().signOut().then(function() {
+		  // Sign-out successful.
+		 window.location = '/';
+		}).catch(function(error) {
+		  // An error happened.
+		});  
+}
+
+</script>	
+	
+</head>
+<body style="background-color:#88d8d2;" >  
+<div>
+ <button id="signout" onclick="signout();" style="float: right;">Sign Out</button>
+</div>  
+<br/><br/><br/>
+  <div class="container">
+  <table cellpadding="0" cellspacing="0" border="0" class="dataTable table table-striped" id="webservice">
+
+  </table>
+</div>
+
+
+</body>
+</html>
